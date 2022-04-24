@@ -20,6 +20,7 @@ window.onload = function(){
 	tamanhoDaCaudaCobrinha = 1;
 
 	vidas = 2;
+	colidindocobrinha: false
 
 
 	//maximoPulos = 4, //limite de pulos do cobrinha
@@ -63,7 +64,7 @@ window.onload = function(){
 		score: 0,
 		//rotacaoBoneco: 0,
 		vidas: 2, 
-		//colidindocobrinha: false,  
+		
 		/*
 		atualiza: function () {
 			//esses dois this abaixo, fazem o cobrinha descer por gravidade até o chão
@@ -117,7 +118,7 @@ window.onload = function(){
 			}
 			
 			this.score = 0;//quando perder, score = 0
-			//a linha acima não fumcionou, tive que fazer gambiarra pra
+			//a linha acima não fumcionou, tive que fazer gambitech pra
 			//consertar, na linha 209: cobrinha.score = 0;//quando perder, score = 0
 			this.vidas = 3;
 		},	
@@ -309,6 +310,7 @@ window.onload = function(){
 				contexto .fillRect(rastroDaCobrinha[i].x*tamanhoPecas, rastroDaCobrinha[i].y*tamanhoPecas, tamanhoPecas-1,tamanhoPecas-1);
 				if (rastroDaCobrinha[i].x == cabecaCobrinhaX && rastroDaCobrinha[i].y == posicaoYInicialCobrinha)
 				{	// fim do jogo, pois velocidade é igual a zero
+					
 					velocidadeX = velocidadeY=0;
 					// tamanho da cauda volta ao tamanho original
 					tamanhoDaCaudaCobrinha =5;
@@ -318,7 +320,7 @@ window.onload = function(){
 			// shift deleta o primeiro elemento
 			// criando a ilusão do movimento				
 			// motivo de estar entre chaves: criação de um, objeto POO
-			// por isso a var x e y foram declaradasa aqui
+			// por isso a var x e y foram declaradas aqui
 			rastroDaCobrinha.push({ x:cabecaCobrinhaX, y:posicaoYInicialCobrinha })
 			while (rastroDaCobrinha.length > tamanhoDaCaudaCobrinha) {
 				rastroDaCobrinha.shift();
