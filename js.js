@@ -17,10 +17,12 @@ window.onload = function(){
 	macaX = macaY = 15;
 
 	rastroDaCobrinha = [];
-	tamanhoDaCaudaCobrinha = 1;
+	tamanhoDaCaudaCobrinha = 12;
 
+	
+	score = 0;
 	vidas = 2;
-	colidindocobrinha: false
+	colidindocobrinha: false;
 
 
 	//maximoPulos = 4, //limite de pulos do cobrinha
@@ -61,9 +63,10 @@ window.onload = function(){
 		//VELOCIDADE: 0,
 		//forcaDoPulo: 15,// quanto maior, maior é a altura do pulo
 		//quantidadePulos: 0,
-		score: 0,
+		//score: 0,
 		//rotacaoBoneco: 0,
-		vidas: 2, 
+		//vidas: 2, 
+		//vidas: 2, 
 		
 		/*
 		atualiza: function () {
@@ -307,13 +310,25 @@ window.onload = function(){
 			for (var i = 0; i < rastroDaCobrinha.length; i++) {
 				// tamanhoPecas-1,tamanhoPecas-1 => serve para colocar 1px entre um quadradinho e outro da cobrinha
 				// se não tiver esse MENOS 1, a cobrinha fica inteiriça, sem emenda
-				contexto .fillRect(rastroDaCobrinha[i].x*tamanhoPecas, rastroDaCobrinha[i].y*tamanhoPecas, tamanhoPecas-1,tamanhoPecas-1);
-				if (rastroDaCobrinha[i].x == cabecaCobrinhaX && rastroDaCobrinha[i].y == posicaoYInicialCobrinha)
-				{	// fim do jogo, pois velocidade é igual a zero
-					
+
+				contexto.fillRect(rastroDaCobrinha[i].x*tamanhoPecas, rastroDaCobrinha[i].y*tamanhoPecas, tamanhoPecas-1,tamanhoPecas-1);
+				
+				if (!rastroDaCobrinha[i].x == cabecaCobrinhaX && rastroDaCobrinha[i].y == posicaoYInicialCobrinha){
+					colidindocobrinha = true;
+
+					setTimeout(function(){
+						colidindocobrinha = false;
+					}, 10000) 
+					if (vidas >=1)
+					vidas--;
+					 
+				
+
+				//else if (rastroDaCobrinha[i].x == cabecaCobrinhaX && rastroDaCobrinha[i].y == posicaoYInicialCobrinha || vidas == 0) {	
+					// fim do jogo, pois velocidade é igual a zero
 					velocidadeX = velocidadeY=0;
 					// tamanho da cauda volta ao tamanho original
-					tamanhoDaCaudaCobrinha =5;
+					tamanhoDaCaudaCobrinha =12;
 				}
 			}
 			// push posiciona o elemento na última posição
@@ -328,6 +343,7 @@ window.onload = function(){
 			// condição para aumentar a cauda
 			if (macaY == cabecaCobrinhaX && macaY == posicaoYInicialCobrinha){
 				tamanhoDaCaudaCobrinha++;
+				score++;
 				macaY = Math.floor(Math.random()*quantidadePecasDentroDoCanvasXY);
 				macaY = Math.floor(Math.random()*quantidadePecasDentroDoCanvasXY);
 			}
@@ -341,14 +357,14 @@ window.onload = function(){
 				contexto.fillStyle = "black";
 				contexto.font = "55px Arial";
 				//contexto.fillText(cobrinha.score, 20, 280);//score na cor branca a esquerda da tela
-				contexto.fillText(vidas, 500, 180);//score na cor branca a esquerda da tela
+				contexto.fillText(score+" score", 380, 180);//score na cor branca a esquerda da tela
 
 			}
 
 				contexto.fillStyle = "white";
-				contexto.font = "45px Arial";
+				contexto.font = "55px Arial";
 				//contexto.fillText(cobrinha.score, 20, 280);//score na cor branca a esquerda da tela
-				contexto.fillText(vidas, 500, 80);//score na cor branca a esquerda da tela
+				contexto.fillText(vidas+" vidas", 380, 80);//score na cor branca a esquerda da tela
 
 		desenha();
 				
