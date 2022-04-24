@@ -22,7 +22,10 @@ window.onload = function(){
 	
 	score = 0;
 	vidas = 2;
-	colidindocobrinha: false;
+	colidindocCobrinha = false;
+
+	iniciarJogo = 0;
+	perderJogo = 1;
 
 
 	//maximoPulos = 4, //limite de pulos do cobrinha
@@ -299,43 +302,32 @@ window.onload = function(){
 				posicaoYInicialCobrinha = 0;
 			}
 			// canvas
-			contexto .fillStyle = "#00FF00";//verde
-			contexto .fillRect(0,0, canvas.width, canvas.height);
+			contexto.fillStyle = "#00FF00";//verde
+			contexto.fillRect(0,0, canvas.width, canvas.height);
 			// maçã
-			contexto .fillStyle = "red";
+			contexto.fillStyle = "red";
 			//local inicial onde a maçã é desenhada
-			contexto .fillRect(macaY*tamanhoPecas, macaY*tamanhoPecas, tamanhoPecas,tamanhoPecas);
+			contexto.fillRect(macaY*tamanhoPecas, macaY*tamanhoPecas, tamanhoPecas,tamanhoPecas);
 			// cobrinha
-			contexto .fillStyle = "#FFA500";//orange 1
+			contexto.fillStyle = "#FFA500";//orange 1
+			
 			for (var i = 0; i < rastroDaCobrinha.length; i++) {
 				// tamanhoPecas-1,tamanhoPecas-1 => serve para colocar 1px entre um quadradinho e outro da cobrinha
 				// se não tiver esse MENOS 1, a cobrinha fica inteiriça, sem emenda
-
-				contexto.fillRect(rastroDaCobrinha[i].x*tamanhoPecas, rastroDaCobrinha[i].y*tamanhoPecas, tamanhoPecas-1,tamanhoPecas-1);
-				
-				if (!rastroDaCobrinha[i].x == cabecaCobrinhaX && rastroDaCobrinha[i].y == posicaoYInicialCobrinha){
-					colidindocobrinha = true;
-
-					setTimeout(function(){
-						colidindocobrinha = false;
-					}, 10000) 
-					if (vidas >=1)
-					vidas--;
-					 
-				
-
-				//else if (rastroDaCobrinha[i].x == cabecaCobrinhaX && rastroDaCobrinha[i].y == posicaoYInicialCobrinha || vidas == 0) {	
-					// fim do jogo, pois velocidade é igual a zero
+				contexto .fillRect(rastroDaCobrinha[i].x*tamanhoPecas, rastroDaCobrinha[i].y*tamanhoPecas, tamanhoPecas-1,tamanhoPecas-1);
+				if (rastroDaCobrinha[i].x == cabecaCobrinhaX && rastroDaCobrinha[i].y == posicaoYInicialCobrinha)
+				{	// fim do jogo, pois velocidade é igual a zero
 					velocidadeX = velocidadeY=0;
 					// tamanho da cauda volta ao tamanho original
-					tamanhoDaCaudaCobrinha =12;
+					tamanhoDaCaudaCobrinha =5;
 				}
 			}
+		
 			// push posiciona o elemento na última posição
 			// shift deleta o primeiro elemento
 			// criando a ilusão do movimento				
 			// motivo de estar entre chaves: criação de um, objeto POO
-			// por isso a var x e y foram declaradas aqui
+			// por isso a var x e y foram declaradasa aqui
 			rastroDaCobrinha.push({ x:cabecaCobrinhaX, y:posicaoYInicialCobrinha })
 			while (rastroDaCobrinha.length > tamanhoDaCaudaCobrinha) {
 				rastroDaCobrinha.shift();
@@ -347,6 +339,7 @@ window.onload = function(){
 				macaY = Math.floor(Math.random()*quantidadePecasDentroDoCanvasXY);
 				macaY = Math.floor(Math.random()*quantidadePecasDentroDoCanvasXY);
 			}
+		
 
 			function desenha() {//depois que atualiza: desenha na tela (primeiro atualiza, depois desenha, graças a função requestAnimationFrame)
 				//contexto.fillStyle = "#50beff";
@@ -354,18 +347,20 @@ window.onload = function(){
 		
 				//bg.desenha(0,0);     //spriteCeu.desenha(0,50);     //spriteCeu.desenha(0,50);    //spriteBoneco.desenha(50,70);
 				//desenhando o score do jogador  
-				contexto.fillStyle = "black";
+				contexto.fillStyle = "white";
 				contexto.font = "55px Arial";
 				//contexto.fillText(cobrinha.score, 20, 280);//score na cor branca a esquerda da tela
-				contexto.fillText(score+" score", 380, 180);//score na cor branca a esquerda da tela
-
-			}
-
+				if (score == 0 || score == 1){
+				contexto.fillText(score+" ponto", 380, 80);//score na cor branca a esquerda da tela
+					}
+					else contexto.fillText(score+" pontos", 380, 80);
+				}	
+				/*
 				contexto.fillStyle = "white";
 				contexto.font = "55px Arial";
 				//contexto.fillText(cobrinha.score, 20, 280);//score na cor branca a esquerda da tela
 				contexto.fillText(vidas+" vidas", 380, 80);//score na cor branca a esquerda da tela
-
+				*/
 		desenha();
 				
 		}
